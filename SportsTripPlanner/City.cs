@@ -1,14 +1,11 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Device.Location;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SportsTripPlanner
 {
-    internal class City
+    public class City
     {
         private bool isInitialized;
         public string Code { get; }
@@ -19,12 +16,6 @@ namespace SportsTripPlanner
         // Default TimeZone to EST
         public TimeZoneInfo TimeZone { get; set; } = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
 
-        public City(string code)
-        {
-            this.Code = code;
-            this.InitializeAsync().Wait();
-        }
-
         public City(string name, string code, string arena, string longitude, string latitude, string timezone)
         {
             this.Name = name;
@@ -33,6 +24,18 @@ namespace SportsTripPlanner
             this.Coordinate = new GeoCoordinate(double.Parse(latitude), double.Parse(longitude));
             this.TimeZone = TimeZoneInfo.FindSystemTimeZoneById(timezone);
             this.isInitialized = true;
+        }
+
+        private City(string code)
+        {
+            this.Code = code;
+        }
+
+        public static async Task<City> GetCityAsync(string code)
+        {
+            City city = new City(code);
+            await city.InitializeAsync();
+            return city;
         }
 
         public double GetDistanceToInKm(City city)

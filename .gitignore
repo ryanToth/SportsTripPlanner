@@ -7,3 +7,7 @@
 /.vs
 /SportsTripPlanner/obj
 /SportsTripPlanner/SportsTripPlanner.csproj.user
+/Backup
+/SportsTripPlannerCommandLine/bin
+/SportsTripPlannerCommandLine/obj
+/SportsTripPlannerCommandLine/SportsTripPlannerCommandLine.csproj.user

@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28606.126
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportsTripPlanner", "SportsTripPlanner\SportsTripPlanner.csproj", "{63A17586-C836-4E7A-8ABF-6F63F3F3BBF8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportsTripPlannerCommandLine", "SportsTripPlannerCommandLine\SportsTripPlannerCommandLine.csproj", "{63A17586-C836-4E7A-8ABF-6F63F3F3BBF8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportsTripPlanner", "SportsTripPlanner\SportsTripPlanner.csproj", "{BECBCDD8-8A89-44B5-9388-D5CE14884FCE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{63A17586-C836-4E7A-8ABF-6F63F3F3BBF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63A17586-C836-4E7A-8ABF-6F63F3F3BBF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63A17586-C836-4E7A-8ABF-6F63F3F3BBF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BECBCDD8-8A89-44B5-9388-D5CE14884FCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BECBCDD8-8A89-44B5-9388-D5CE14884FCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BECBCDD8-8A89-44B5-9388-D5CE14884FCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BECBCDD8-8A89-44B5-9388-D5CE14884FCE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

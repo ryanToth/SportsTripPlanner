@@ -3,12 +3,11 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SportsTripPlanner
 {
-    internal class NhlSchedule : HashSet<Game>
+    public class NhlSchedule : HashSet<Game>
     {
         private string yearCode;
         private AsyncManualResetEvent initialized = new AsyncManualResetEvent();
@@ -70,7 +69,7 @@ namespace SportsTripPlanner
 
             if (rawGameInfo != null)
             {
-                this.UnionWith(rawGameInfo.Select(x => new Game(x.h, x.a, x.est)));
+                this.UnionWith(rawGameInfo.Select(x => Task.Run(async () => await Game.CreateGameAsync(x.h, x.a, x.est)).Result));
             }
 
             this.initialized.Set();
