@@ -26,6 +26,12 @@ namespace SportsTripPlanner
                    this.GetEndingCity().GetDistanceToInKm(game.HomeTeam) <= maxTravel;
         }
 
+        public bool SpansWeekend()
+        {
+            // If the number of days plus the length of the trip is over or equal to 7, the trip will end on or after Sunday
+            return (int)this.GetStartingDate().DayOfWeek + this.NumberOfDays >= 7;
+        }
+
         public City GetStartingCity()
         {
             return this.First(x => x.Date == this.GetStartingDate()).HomeTeam;
@@ -80,6 +86,14 @@ namespace SportsTripPlanner
                    $"Home Teams: {this.GetHomeTeams()}{Environment.NewLine}" +
                    $"All Teams: {this.GetAllTeams()}{Environment.NewLine}" +
                    $"Games: {this.GetGames()}{Environment.NewLine}";
+        }
+
+        private double NumberOfDays
+        {
+            get
+            {
+                return (this.GetEndingDate() - this.GetStartingDate()).TotalDays;
+            }
         }
     }
 }

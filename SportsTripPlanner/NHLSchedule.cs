@@ -15,6 +15,11 @@ namespace SportsTripPlanner
         
         public NhlSchedule(string yearCode)
         {
+            if (yearCode == null)
+            {
+                yearCode = this.GetCurrentSeasonScheduleYear();
+            }
+
             this.ValidateConstructorArguments(yearCode);
 
             this.yearCode = yearCode;
@@ -25,7 +30,7 @@ namespace SportsTripPlanner
             });
         }
 
-        public IEnumerable<Trip> GetTrips(int tripLength, int minimumNumberOfGames, int maxTravel, IEnumerable<string> mustSeeTeam, string necessaryHomeTeam)
+        public IEnumerable<Trip> GetTrips(int tripLength, int minimumNumberOfGames, int maxTravel, IEnumerable<string> mustSeeTeam, string necessaryHomeTeam, bool mustSpanWeekend)
         {
             List<Trip> trips = new List<Trip>();
             // Make sure the schedule is initialized before querying it
@@ -46,6 +51,7 @@ namespace SportsTripPlanner
             }
 
             return trips.Where(x => x.Count() >= minimumNumberOfGames && 
+                                    (!mustSpanWeekend || x.SpansWeekend()) &&
                                     (mustSeeTeam.Count() == 0 || x.Where(t => mustSeeTeam.Contains(t.AwayTeam.Code) || 
                                                                               mustSeeTeam.Contains(t.HomeTeam.Code) ||
                                                                               mustSeeTeam.Contains(t.AwayTeam.Code.ToLower()) ||
@@ -86,12 +92,6 @@ namespace SportsTripPlanner
 
         private void ValidateConstructorArguments(string yearCode)
         {
-            if (yearCode == null)
-            {
-                this.yearCode = this.GetCurrentSeasonScheduleYear();
-                return;
-            }
-
             if (yearCode.Length != 8)
             {
                 throw new ArgumentException($"'{nameof(yearCode)}' must be 8 characters long");

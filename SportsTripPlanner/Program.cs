@@ -17,7 +17,7 @@ namespace SportsTripPlanner
                     NhlSchedule schedule = new NhlSchedule(opts.YearCode);
 
                     IEnumerable<Trip> trips = schedule.GetTrips(opts.TripLength, opts.MinimumNumberOfGames, 
-                        opts.MaxTravel, opts.MustSeeTeams, opts.NecessaryHomeTeam);
+                        opts.MaxTravel, opts.MustSeeTeams, opts.NecessaryHomeTeam, opts.MustSpanWeekend);
 
                     Console.Out.WriteLine($"{Environment.NewLine}");
                     Console.Out.WriteLine(string.Join($"{Environment.NewLine}{Environment.NewLine}", trips));
@@ -50,5 +50,8 @@ namespace SportsTripPlanner
 
         [Option('n', "necessaryHomeTeam", Required = false, HelpText = "At least one game in this trip must be home game for this team")]
         public string NecessaryHomeTeam { get; set; }
+
+        [Option('w', "mustSpanWeekend", Required = false, Default = true, HelpText = "The trip must take place over a Saturday and Sunday")]
+        public bool MustSpanWeekend { get; set; }
     }
 }
