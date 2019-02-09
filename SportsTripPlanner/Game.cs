@@ -28,5 +28,11 @@ namespace SportsTripPlanner
             TimeZoneInfo tz = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
             this.Date = Utilities.ConvertRawDateToReadableString(dateCode, tz, this.HomeTeam.TimeZone);
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Game game && this.HomeTeam.Equals(game.HomeTeam)
+                && this.AwayTeam.Equals(game.AwayTeam) && this.Date == game.Date;
+        }
     }
 }

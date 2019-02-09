@@ -37,26 +37,40 @@ namespace SportsTripPlanner
 
             foreach (Game game in this)
             {
-                var tripsToIncludeGameIn = trips.Where(x => x.CanAddGameToTrip(game, tripLength, maxTravel));
-                if (tripsToIncludeGameIn != null)
+                var tripsToIncludeGameIn = trips.Where(x => x.CanAddGameToTrip(game));
+                List<Trip> dupeTripsToAdd = new List<Trip>();
+
+                foreach (Trip trip in tripsToIncludeGameIn)
                 {
-                    foreach (Trip trip in tripsToIncludeGameIn)
-                    {
-                        trip.Add(game);
-                    }
+                    dupeTripsToAdd.Add(new Trip(trip));
+                    trip.Add(game);
                 }
 
-                trips.Add(new Trip(game));
+                trips.AddRange(dupeTripsToAdd);
+                trips.Add(new Trip(tripLength, maxTravel, game));
             }
 
-            return trips.Where(x => x.Count() >= minimumNumberOfGames && 
-                                    (!mustSpanWeekend || x.SpansWeekend()) &&
-                                    (mustStartOnDayOfWeek == null || (int)x.GetStartingDate().DayOfWeek == mustStartOnDayOfWeek.Value) &&
-                                    (mustSeeTeam.Count() == 0 || x.Where(t => mustSeeTeam.Contains(t.AwayTeam.Code) || 
-                                                                              mustSeeTeam.Contains(t.HomeTeam.Code) ||
-                                                                              mustSeeTeam.Contains(t.AwayTeam.Code.ToLower()) ||
-                                                                              mustSeeTeam.Contains(t.HomeTeam.Code.ToLower())).Count() > 0) &&
-                                    (string.IsNullOrEmpty(necessaryHomeTeam) || x.Where(t => t.HomeTeam.Code == necessaryHomeTeam).Count() > 0));
+            var potentialTrips = trips.Where(x => x.Count() >= minimumNumberOfGames && 
+                                                (!mustSpanWeekend || x.SpansWeekend()) &&
+                                                (mustStartOnDayOfWeek == null || (int)x.GetStartingDate().DayOfWeek == mustStartOnDayOfWeek.Value) &&
+                                                (mustSeeTeam.Count() == 0 || x.Where(t => mustSeeTeam.Contains(t.AwayTeam.Code) || 
+                                                                                            mustSeeTeam.Contains(t.HomeTeam.Code) ||
+                                                                                            mustSeeTeam.Contains(t.AwayTeam.Code.ToLower()) ||
+                                                                                            mustSeeTeam.Contains(t.HomeTeam.Code.ToLower())).Count() > 0) &&
+                                                (string.IsNullOrEmpty(necessaryHomeTeam) || x.Where(t => t.HomeTeam.Code == necessaryHomeTeam).Count() > 0))
+                                      .Distinct();
+
+            // Remove trips that are subsets of other trips
+            List<Trip> tripsToRemove = new List<Trip>();
+            foreach (var trip in potentialTrips)
+            {
+                if (potentialTrips.Any(x => trip.IsProperSubsetOf(x)))
+                {
+                    tripsToRemove.Add(trip);
+                }
+            }
+
+            return potentialTrips.Except(tripsToRemove);
         }
 
         private async Task InitializeAsync()
