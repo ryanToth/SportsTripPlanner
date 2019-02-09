@@ -30,7 +30,9 @@ namespace SportsTripPlanner
             });
         }
 
-        public IEnumerable<Trip> GetTrips(int tripLength, int minimumNumberOfGames, int maxTravel, IEnumerable<string> mustSeeTeam, string necessaryHomeTeam, bool mustSpanWeekend)
+        public IEnumerable<Trip> GetTrips(int tripLength, int minimumNumberOfGames, int maxTravel, 
+            IEnumerable<string> mustSeeTeam, string necessaryHomeTeam, bool mustSpanWeekend,
+            int? mustStartOnDayOfWeek)
         {
             List<Trip> trips = new List<Trip>();
             // Make sure the schedule is initialized before querying it
@@ -52,6 +54,7 @@ namespace SportsTripPlanner
 
             return trips.Where(x => x.Count() >= minimumNumberOfGames && 
                                     (!mustSpanWeekend || x.SpansWeekend()) &&
+                                    (mustStartOnDayOfWeek == null || (int)x.GetStartingDate().DayOfWeek == mustStartOnDayOfWeek.Value) &&
                                     (mustSeeTeam.Count() == 0 || x.Where(t => mustSeeTeam.Contains(t.AwayTeam.Code) || 
                                                                               mustSeeTeam.Contains(t.HomeTeam.Code) ||
                                                                               mustSeeTeam.Contains(t.AwayTeam.Code.ToLower()) ||

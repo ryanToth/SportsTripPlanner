@@ -17,17 +17,14 @@ namespace SportsTripPlanner
                     NhlSchedule schedule = new NhlSchedule(opts.YearCode);
 
                     IEnumerable<Trip> trips = schedule.GetTrips(opts.TripLength, opts.MinimumNumberOfGames, 
-                        opts.MaxTravel, opts.MustSeeTeams, opts.NecessaryHomeTeam, opts.MustSpanWeekend);
+                        opts.MaxTravel, opts.MustSeeTeams, opts.NecessaryHomeTeam, opts.MustSpanWeekend, opts.DayOfWeek);
 
                     Console.Out.WriteLine($"{Environment.NewLine}");
                     Console.Out.WriteLine(string.Join($"{Environment.NewLine}{Environment.NewLine}", trips));
                     Console.Out.WriteLine($"{Environment.NewLine}");
                     Console.Out.WriteLine($"Found {trips.Count()} trip(s).{Environment.NewLine}");
                 })
-                .WithNotParsed<Options>((errs) =>
-                {
-
-                });
+                .WithNotParsed<Options>((errs) => { });
         }
     }
 
@@ -53,5 +50,8 @@ namespace SportsTripPlanner
 
         [Option('w', "mustSpanWeekend", Required = false, Default = true, HelpText = "The trip must take place over a Saturday and Sunday")]
         public bool MustSpanWeekend { get; set; }
+
+        [Option('d', "mustStartOnDayOfWeek", Required = false, HelpText = "The day of the week that the trip must start on. e.g. Sunday = 0, Saturday = 6")]
+        public int? DayOfWeek { get; set; }
     }
 }

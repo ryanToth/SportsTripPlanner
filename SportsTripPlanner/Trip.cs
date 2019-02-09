@@ -8,20 +8,18 @@ namespace SportsTripPlanner
 {
     internal class Trip : List<Game>
     {
-        public bool Done { get; set; }
-
         public Trip(params Game[] games)
         {
             this.AddRange(games);
         }
 
         // To be able to be added to the trip the game must
-        //  1. Be within the trip length
-        //  2. There must be at least 8 hours between each game
+        //  1. Be within the trip length (counting the beginning of a day at midnight on the first day, not when th first game starts)
+        //  2. There must be at least 8 hours between ea ch game
         //  3. It must be within the distance threshold from the last game
         public bool CanAddGameToTrip(Game game, int tripLength, int maxTravel)
         {
-            return this.GetStartingDate().AddDays(tripLength) > game.Date &&
+            return this.GetStartingDate().Date.AddDays(tripLength) > game.Date &&
                    this.Where(x => x.Date.AddHours(8).CompareTo(game.Date) > 0 && x.Date.CompareTo(game.Date.AddHours(8)) < 0).Count() == 0 &&
                    this.GetEndingCity().GetDistanceToInKm(game.HomeTeam) <= maxTravel;
         }
