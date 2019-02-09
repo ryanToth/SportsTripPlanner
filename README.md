@@ -1,5 +1,5 @@
 # SportsTripPlanner
-A command line app to help plan sports trips
+A command line app to help plan sports trips. Currently only looks at the NHL schedule.
 
   -t, --tripLength              Required. The number of days that you want your trip to be
 
