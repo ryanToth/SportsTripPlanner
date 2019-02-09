@@ -1,0 +1,250 @@
+﻿[
+  {
+    "code": "NSH",
+    "team": "Nashville Predators",
+    "arena": "BridgEastern Standard Timeone Arena",
+    "latitude": 36.15917,
+    "longitude": -86.77861,
+    "timezone":  "Central Standard Time"
+  },
+  {
+    "code": "OTT",
+    "team": "Ottawa Senators",
+    "arena": "Canadian Tire Centre",
+    "latitude": 45.29694,
+    "longitude": -75.92722,
+    "timezone": "Eastern Standard Time"
+  },
+  {
+    "code": "DAL",
+    "team": "Dallas Stars",
+    "arena": "American Airlines Center",
+    "latitude": 32.79056,
+    "longitude": -96.81028,
+    "timezone": "Central Standard Time"
+  },
+  {
+    "code": "FLA",
+    "team": "Florida Panthers",
+    "arena": "BB&T Center (Sunrise, Florida)",
+    "latitude": 26.15833,
+    "longitude": -80.32556,
+    "timezone": "Eastern Standard Time"
+  },
+  {
+    "code": "MTL",
+    "team": "Montreal Canadiens",
+    "arena": "Bell Centre",
+    "latitude": 45.49611,
+    "longitude": -73.56944,
+    "timezone": "Eastern Standard Time"
+  },
+  {
+    "code": "TOR",
+    "team": "Toronto Maple Leafs",
+    "arena": "ScotiaBank Arena",
+    "latitude": 43.64333,
+    "longitude": -79.37917,
+    "timezone": "Eastern Standard Time"
+  },
+  {
+    "code": "BUF",
+    "team": "Buffalo Sabres",
+    "arena": "First Niagara Center",
+    "latitude": 42.875,
+    "longitude": -78.87639,
+    "timezone": "Eastern Standard Time"
+  },
+  {
+    "code": "PIT",
+    "team": "Pittsburgh Penguins",
+    "arena": "Consol Energy Center",
+    "latitude": 40.43944,
+    "longitude": -79.98917,
+    "timezone": "Eastern Standard Time"
+  },
+  {
+    "code": "ARI",
+    "team": "Arizona Coyotes",
+    "arena": "Jobing.com Arena",
+    "latitude": 33.53194,
+    "longitude": -112.26111,
+    "timezone": "Central Standard Time"
+  },
+  {
+    "code": "WPG",
+    "team": "Winnipeg Jets",
+    "arena": "MTS Centre",
+    "latitude": 49.89278,
+    "longitude": -97.14361,
+    "timezone": "Central Standard Time"
+  },
+  {
+    "code": "ANA",
+    "team": "Anaheim Ducks",
+    "arena": "Honda Center",
+    "latitude": 33.80778,
+    "longitude": -117.87667,
+    "timezone": "Pacific Standard Time"
+  },
+  {
+    "code": "DET",
+    "team": "Detroit Red Wings",
+    "arena": "Joe Louis Arena",
+    "latitude": 42.32528,
+    "longitude": -83.05139,
+    "timezone": "Eastern Standard Time"
+  },
+  {
+    "code": "NYI",
+    "team": "New York Islanders",
+    "arena": "Nassau Veterans Memorial Coliseum",
+    "latitude": 40.72278,
+    "longitude": -73.59056,
+    "timezone": "Eastern Standard Time"
+  },
+  {
+    "code": "COL",
+    "team": "Colorado Avalanche",
+    "arena": "Pepsi Center",
+    "latitude": 39.74861,
+    "longitude": -105.0075,
+    "timezone": "Mountain Standard Time"
+  },
+  {
+    "code": "CBJ",
+    "team": "Columbus Blue Jackets",
+    "arena": "Nationwide Arena",
+    "latitude": 39.9692833,
+    "longitude": -83.0061111,
+    "timezone": "Eastern Standard Time"
+  },
+  {
+    "code": "EDM",
+    "team": "Edmonton Oilers",
+    "arena": "Rexall Place",
+    "latitude": 53.57139,
+    "longitude": -113.45611,
+    "timezone": "Mountain Standard Time"
+  },
+  {
+    "code": "CAR",
+    "team": "Carolina Hurricanes",
+    "arena": "PNC Arena",
+    "latitude": 35.80333,
+    "longitude": -78.72194,
+    "timezone": "Eastern Standard Time"
+  },
+  {
+    "code": "VAN",
+    "team": "Vancouver Canucks",
+    "arena": "Rogers Arena",
+    "latitude": 49.27778,
+    "longitude": -123.10889,
+    "timezone": "Pacific Standard Time"
+  },
+  {
+    "code": "CGY",
+    "team": "Calgary Flames",
+    "arena": "Scotiabank Saddledome",
+    "latitude": 51.0375,
+    "longitude": -114.05194,
+    "timezone": "Mountain Standard Time"
+  },
+  {
+    "code": "SJS",
+    "team": "San Jose Sharks",
+    "arena": "SAP Center at San Jose",
+    "latitude": 37.33278,
+    "longitude": -121.90111,
+    "timezone":  "Pacific Standard Time"
+  },
+  {
+    "code": "NJD",
+    "team": "New Jersey Devils",
+    "arena": "Prudential Center",
+    "latitude": 40.73361,
+    "longitude": -74.17111,
+    "timezone":  "Eastern Standard Time"
+  },
+  {
+    "code": "STL",
+    "team": "St. Louis Blues",
+    "arena": "Scottrade Center",
+    "latitude": 38.62667,
+    "longitude": -90.2025,
+    "timezone":  "Central Standard Time"
+  },
+  {
+    "code": "TBL",
+    "team": "Tampa Bay Lightning",
+    "arena": "Tampa Bay Times Forum",
+    "latitude": 27.94278,
+    "longitude": -82.45194,
+    "timezone":  "Eastern Standard Time"
+  },
+  {
+    "code": "LAK",
+    "team": "Los Angeles Kings",
+    "arena": "Staples Center",
+    "latitude": 34.04306,
+    "longitude": -118.26722,
+    "timezone":  "Pacific Standard Time"
+  },
+  {
+    "code": "NYR",
+    "team": "New York Rangers",
+    "arena": "Madison Square Garden",
+    "latitude": 40.75056,
+    "longitude": -73.99361,
+    "timezone":  "Eastern Standard Time"
+  },
+  {
+    "code": "CHI",
+    "team": "Chicago Blackhawks",
+    "arena": "United Center",
+    "latitude": 41.88056,
+    "longitude": -87.67417,
+    "timezone":  "Central Standard Time"
+  },
+  {
+    "code": "MIN",
+    "team": "Minnesota Wild",
+    "arena": "Xcel Energy Center",
+    "latitude": 44.94472,
+    "longitude": -93.10111,
+    "timezone":  "Central Standard Time"
+  },
+  {
+    "code": "PHI",
+    "team": "Philadelphia Flyers",
+    "arena": "Wells Fargo Center",
+    "latitude": 39.90111,
+    "longitude": -75.17194,
+    "timezone":  "Eastern Standard Time"
+  },
+  {
+    "code": "WSH",
+    "team": "Washington Capitals",
+    "arena": "Verizon Center",
+    "latitude": 38.89806,
+    "longitude": -77.02083,
+    "timezone":  "Eastern Standard Time"
+  },
+  {
+    "code": "BOS",
+    "team": "Boston Bruins",
+    "arena": "TD Garden",
+    "latitude": 42.3663028,
+    "longitude": -71.0622278,
+    "timezone":  "Eastern Standard Time"
+  },
+  {
+    "code": "VGK",
+    "team": "Vegas Golden Knights",
+    "arena": "T-Mobile Arena",
+    "latitude": 36.1029,
+    "longitude": 115.1784,
+    "timezone":  "Pacific Standard Time"
+  }
+]
