@@ -3,6 +3,7 @@ using SportsTripPlanner;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SportsTripPlannerCommandLine
 {
@@ -10,13 +11,18 @@ namespace SportsTripPlannerCommandLine
     {
         static void Main(string[] args)
         {
-            CommandLine.Parser.Default.ParseArguments<Options>(args)
+            try
+            {
+                CommandLine.Parser.Default.ParseArguments<Options>(args)
                 .WithParsed<Options>(opts =>
                 {
-                    NhlSchedule schedule = new NhlSchedule(opts.YearCode);
+                    TripPlanner planner = new TripPlanner(opts.YearCode);
 
-                    IEnumerable<Trip> trips = schedule.GetTrips(opts.TripLength, opts.MinimumNumberOfGames, 
-                        opts.MaxTravel, opts.MustSeeTeams, opts.NecessaryHomeTeam, opts.MustSpanWeekend, opts.DayOfWeek);
+                    IEnumerable<Trip> trips = Task.Run<IEnumerable<Trip>>(async () => {
+                        return await planner.PlanTripAsync(opts.TripLength,
+                            opts.MinimumNumberOfGames, opts.MaxTravel, opts.MustSeeTeams,
+                            opts.NecessaryHomeTeam, opts.MustSpanWeekend, opts.DayOfWeek);
+                    }).Result;
 
                     Console.Out.WriteLine($"{Environment.NewLine}");
                     Console.Out.WriteLine(string.Join($"{Environment.NewLine}{Environment.NewLine}", trips));
@@ -24,6 +30,19 @@ namespace SportsTripPlannerCommandLine
                     Console.Out.WriteLine($"Found {trips.Count()} trip(s).{Environment.NewLine}");
                 })
                 .WithNotParsed<Options>((errs) => { });
+            }
+            catch(Exception ex)
+            {
+                List<string> messagesToPrint = new List<string>(new string[] { "Error Encountered:" });
+                
+                while (ex != null)
+                {
+                    messagesToPrint.Add($"{Environment.NewLine}----- {ex.Message} ------{Environment.NewLine}{ex.StackTrace}");
+                    ex = ex.InnerException;
+                }
+
+                Console.Out.WriteLine(string.Join(Environment.NewLine, messagesToPrint));
+            }
         }
     }
 

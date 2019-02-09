@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualStudio.Threading;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +9,8 @@ namespace SportsTripPlanner
     public class NhlSchedule : HashSet<Game>
     {
         private string yearCode;
-        private AsyncManualResetEvent initialized = new AsyncManualResetEvent();
         
-        public NhlSchedule(string yearCode)
+        private NhlSchedule(string yearCode)
         {
             if (yearCode == null)
             {
@@ -22,20 +20,20 @@ namespace SportsTripPlanner
             this.ValidateConstructorArguments(yearCode);
 
             this.yearCode = yearCode;
-
-            Task.Run(async () => 
-            {
-                await Initialize();
-            });
         }
 
-        public IEnumerable<Trip> GetTrips(int tripLength, int minimumNumberOfGames, int maxTravel, 
+        public static async Task<NhlSchedule> GetNhlScheduleAsync(string yearCode)
+        {
+            NhlSchedule schedule = new NhlSchedule(yearCode);
+            await schedule.InitializeAsync();
+            return schedule;
+        }
+
+        internal IEnumerable<Trip> GetTrips(int tripLength, int minimumNumberOfGames, int maxTravel, 
             IEnumerable<string> mustSeeTeam, string necessaryHomeTeam, bool mustSpanWeekend,
             int? mustStartOnDayOfWeek)
         {
             List<Trip> trips = new List<Trip>();
-            // Make sure the schedule is initialized before querying it
-            Task.Run(async () => await this.initialized.WaitAsync()).Wait();
 
             foreach (Game game in this)
             {
@@ -61,7 +59,7 @@ namespace SportsTripPlanner
                                     (string.IsNullOrEmpty(necessaryHomeTeam) || x.Where(t => t.HomeTeam.Code == necessaryHomeTeam).Count() > 0));
         }
 
-        private async Task Initialize()
+        private async Task InitializeAsync()
         {
             string jsonSchedule = await NetworkUtilities.GetJsonFromApiAsync($"http://live.nhl.com/GameData/SeasonSchedule-{this.yearCode}.json");
 
@@ -69,10 +67,11 @@ namespace SportsTripPlanner
 
             if (rawGameInfo != null)
             {
-                this.UnionWith(rawGameInfo.Select(x => Task.Run(async () => await Game.CreateGameAsync(x.h, x.a, x.est)).Result));
+                foreach (RawNhlGameInfo info in rawGameInfo)
+                {
+                    this.Add(await Game.CreateGameAsync(info.h, info.a, info.est));
+                }
             }
-
-            this.initialized.Set();
         }
 
         private string GetCurrentSeasonScheduleYear()
