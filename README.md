@@ -1,5 +1,5 @@
 # SportsTripPlanner
-A command line app to help plan sports trips. Currently only looks at the NHL schedule.
+A command line app to help plan sports trips. Currently only looks at the NHL and NBA schedules.
 
   -t, --tripLength              Required. The number of days that you want your trip to be
 
@@ -17,6 +17,10 @@ A command line app to help plan sports trips. Currently only looks at the NHL sc
   -w, --mustSpanWeekend         (Default: true) The trip must take place over a Saturday and Sunday
 
   -d, --mustStartOnDayOfWeek    The day of the week that the trip must start on. e.g. Sunday = 0, Saturday = 6
+
+  -l, --leagues                 (Default: All) List of all of the leagues that you are interested in. e.g. NHL NBA
+
+  -q, --mustIncludeLeagues      List of all of the leagues that at elast game of the trip must be.
 
   --help                        Display this help screen.
 
