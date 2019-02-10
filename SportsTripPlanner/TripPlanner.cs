@@ -44,19 +44,26 @@ namespace SportsTripPlanner
                 allGames.AddRange(await schedule.GetValueAsync());
             }
 
+            DayOfWeek tripEndDayOfWeekMax = (DayOfWeek)((mustStartOnDayOfWeek.Value + tripLength - 1) % 7);
+
             foreach (Game game in allGames.OrderBy(x => x.Date))
             {
-                List<Trip> dupeTripsToAdd = new List<Trip>();
-                var tripsToIncludeGameIn = trips.Where(x => x.CanAddGameToTrip(game));
-
-                foreach (Trip trip in tripsToIncludeGameIn)
+                // Check that this game takes place on a valid day of the week before considering it
+                if (!mustStartOnDayOfWeek.HasValue ||
+                    ((Utilities.InBetweenDaysInclusive(game.Date, (DayOfWeek)mustStartOnDayOfWeek.Value, tripEndDayOfWeekMax))))
                 {
-                    dupeTripsToAdd.Add(new Trip(trip));
-                    trip.Add(game);
-                }
+                    List<Trip> dupeTripsToAdd = new List<Trip>();
+                    var tripsToIncludeGameIn = trips.Where(x => x.CanAddGameToTrip(game));
 
-                trips.AddRange(dupeTripsToAdd);
-                trips.Add(new Trip(tripLength, maxTravel, game));
+                    foreach (Trip trip in tripsToIncludeGameIn)
+                    {
+                        dupeTripsToAdd.Add(new Trip(trip));
+                        trip.Add(game);
+                    }
+
+                    trips.AddRange(dupeTripsToAdd);
+                    trips.Add(new Trip(tripLength, maxTravel, game));
+                }
             }
 
             var potentialTrips = trips.Where(x => x.Count() >= minimumNumberOfGames &&
