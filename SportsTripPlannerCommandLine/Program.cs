@@ -13,10 +13,13 @@ namespace SportsTripPlannerCommandLine
         {
             try
             {
-                CommandLine.Parser.Default.ParseArguments<Options>(args)
+                Parser.Default.ParseArguments<Options>(args)
                 .WithParsed<Options>(opts =>
                 {
-                    TripPlanner planner = new TripPlanner(opts.YearCode);
+                    List<string> leagues = new List<string>();
+                    leagues.AddRange(opts.Leagues);
+                    leagues.AddRange(opts.MustIncludeLeagues);
+                    TripPlanner planner = new TripPlanner(opts.YearCode, leagues, opts.MustIncludeLeagues);
 
                     IEnumerable<Trip> trips = Task.Run<IEnumerable<Trip>>(async () => {
                         return await planner.PlanTripAsync(opts.TripLength,
@@ -71,5 +74,11 @@ namespace SportsTripPlannerCommandLine
 
         [Option('d', "mustStartOnDayOfWeek", Required = false, HelpText = "The day of the week that the trip must start on. e.g. Sunday = 0, Saturday = 6")]
         public int? DayOfWeek { get; set; }
+
+        [Option('l', "leagues", Required = false, Default = "All", HelpText = "List of all of the leagues that you are interested in. e.g. NHL NBA")]
+        public IEnumerable<string> Leagues { get; set; }
+
+        [Option('q', "mustIncludeLeagues", Required = false, HelpText = "List of all of the leagues that at elast game of the trip must be.")]
+        public IEnumerable<string> MustIncludeLeagues { get; set; }
     }
 }

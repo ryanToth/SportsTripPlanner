@@ -24,14 +24,27 @@ namespace SportsTripPlanner
             return TimeZoneInfo.ConvertTimeFromUtc(UTCTime, targetTimeZone);
         }
 
-        public static AsyncLazy<IEnumerable<City>> Cities = new AsyncLazy<IEnumerable<City>>(async () => 
+        public static AsyncLazy<IEnumerable<Team>> NhlCities = new AsyncLazy<IEnumerable<Team>>(async () => 
         {
-            List<City> cities = new List<City>();
+            List<Team> cities = new List<Team>();
             using (StreamReader r = new StreamReader(@".\Data\nhl-arena-locations.json"))
             {
                 string json = r.ReadToEnd();
                 IEnumerable<RawCityInfo> rawCityInfoList = JsonConvert.DeserializeObject<IEnumerable<RawCityInfo>>(json);
-                cities.AddRange(rawCityInfoList.Select(x => new City(x.team, x.code, x.arena, x.longitude, x.latitude, x.timezone)));
+                cities.AddRange(rawCityInfoList.Select(x => new Team(x.team, x.code, x.arena, x.longitude, x.latitude, x.timezone)));
+            }
+
+            return cities;
+        });
+
+        public static AsyncLazy<IEnumerable<Team>> NbaCities = new AsyncLazy<IEnumerable<Team>>(async () =>
+        {
+            List<Team> cities = new List<Team>();
+            using (StreamReader r = new StreamReader(@".\Data\nba-stadium-locations.json"))
+            {
+                string json = r.ReadToEnd();
+                IEnumerable<RawCityInfo> rawCityInfoList = JsonConvert.DeserializeObject<IEnumerable<RawCityInfo>>(json);
+                cities.AddRange(rawCityInfoList.Select(x => new Team(x.team, x.code, x.arena, x.longitude, x.latitude, x.timezone)));
             }
 
             return cities;

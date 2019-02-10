@@ -1,0 +1,212 @@
+[
+  {
+    "code": "ATL",
+    "team": "Atlanta Hawks",
+    "arena": "State Farm Arena",
+    "latitude": "33.757222222222",
+    "longitude": "-84.396388888889"
+  },
+  {
+    "code": "BOS",
+    "team": "Boston Celtics",
+    "arena": "TD Garden",
+    "latitude": "42.366302777778",
+    "longitude": "-71.062227777778"
+  },
+  {
+    "code": "BKN",
+    "team": "Brooklyn Nets",
+    "arena": "Barclays Center",
+    "latitude": "40.68265",
+    "longitude": "-73.974689"
+  },
+  {
+    "code": "CHA",
+    "team": "Charlotte Hornets",
+    "arena": "Spectrum Center",
+    "latitude": "35.225",
+    "longitude": "-80.839166666667"
+  },
+  {
+    "code": "CHI",
+    "team": "Chicago Bulls",
+    "arena": "United Center",
+    "latitude": "41.880555555556",
+    "longitude": "-87.674166666667"
+  },
+  {
+    "code": "CLE",
+    "team": "Cleveland Cavaliers",
+    "arena": "Quicken Loans Arena",
+    "latitude": "41.496388888889",
+    "longitude": "-81.688055555556"
+  },
+  {
+    "code": "DAL",
+    "team": "Dallas Mavericks",
+    "arena": "American Airlines Center",
+    "latitude": "32.790555555556",
+    "longitude": "-96.810277777778"
+  },
+  {
+    "code": "DEN",
+    "team": "Denver Nuggets",
+    "arena": "Pepsi Center",
+    "latitude": "39.748611111111",
+    "longitude": "-105.0075"
+  },
+  {
+    "code": "DET",
+    "team": "Detroit Pistons",
+    "arena": "Little Caesars Arena",
+    "latitude": "42.3412",
+    "longitude": "-83.0549"
+  },
+  {
+    "code": "GSW",
+    "team": "Golden State Warriors",
+    "arena": "Oracle Arena",
+    "latitude": "37.750277777778",
+    "longitude": "-122.20305555556"
+  },
+  {
+    "code": "HOU",
+    "team": "Houston Rockets",
+    "arena": "Toyota Center",
+    "latitude": "29.750833333333",
+    "longitude": "-95.362222222222"
+  },
+  {
+    "code": "IND",
+    "team": "Indiana Pacers",
+    "arena": "Bankers Life Fieldhouse",
+    "latitude": "39.763888888889",
+    "longitude": "-86.155555555556"
+  },
+  {
+    "code": "LAC",
+    "team": "Los Angeles Clippers",
+    "arena": "Staples Center",
+    "latitude": "34.043055555556",
+    "longitude": "-118.26722222222"
+  },
+  {
+    "code": "LAL",
+    "team": "Los Angeles Lakers",
+    "arena": "Staples Center",
+    "latitude": "34.043055555556",
+    "longitude": "-118.26722222222"
+  },
+  {
+    "code": "MEM",
+    "team": "Memphis Grizzlies",
+    "arena": "FedExForum",
+    "latitude": "35.138333333333",
+    "longitude": "-90.050555555556"
+  },
+  {
+    "code": "MIA",
+    "team": "Miami Heat",
+    "arena": "American Airlines Arena",
+    "latitude": "25.781388888889",
+    "longitude": "-80.188055555556"
+  },
+  {
+    "code": "MIL",
+    "team": "Milwaukee Bucks",
+    "arena": "Fiserv Forum",
+    "latitude": "43.0451",
+    "longitude": "-87.9182"
+  },
+  {
+    "code": "MIN",
+    "team": "Minnesota Timberwolves",
+    "arena": "Target Center",
+    "latitude": "44.979444444444",
+    "longitude": "-93.276111111111"
+  },
+  {
+    "code": "NOP",
+    "team": "New Orleans Pelicans",
+    "arena": "Smoothie King Center",
+    "latitude": "29.948888888889",
+    "longitude": "-90.081944444444"
+  },
+  {
+    "code": "NYK",
+    "team": "New York Knicks",
+    "arena": "Madison Square Garden",
+    "latitude": "40.750555555556",
+    "longitude": "-73.993611111111"
+  },
+  {
+    "code": "OKC",
+    "team": "Oklahoma City Thunder",
+    "arena": "Chesapeake Energy Arena",
+    "latitude": "35.463333",
+    "longitude": "-97.515"
+  },
+  {
+    "code": "ORL",
+    "team": "Orlando Magic",
+    "arena": "Amway Center",
+    "latitude": "28.539167",
+    "longitude": "-81.383611"
+  },
+  {
+    "code": "PHI",
+    "team": "Philadelphia 76ers",
+    "arena": "Wells Fargo Center",
+    "latitude": "39.901111111111",
+    "longitude": "-75.171944444444"
+  },
+  {
+    "code": "PHX",
+    "team": "Phoenix Suns",
+    "arena": "Talking Stick Resort Arena",
+    "latitude": "33.445833333333",
+    "longitude": "-112.07138888889"
+  },
+  {
+    "code": "POR",
+    "team": "Portland Trail Blazers",
+    "arena": "Moda Center",
+    "latitude": "45.531666666667",
+    "longitude": "-122.66666666667"
+  },
+  {
+    "code": "SAC",
+    "team": "Sacramento Kings",
+    "arena": "Golden 1 Center",
+    "latitude": "38.58",
+    "longitude": "-121.5"
+  },
+  {
+    "code": "SAS",
+    "team": "San Antonio Spurs",
+    "arena": "AT&T Center",
+    "latitude": "29.426944444444",
+    "longitude": "-98.4375"
+  },
+  {
+    "code": "TOR",
+    "team": "Toronto Raptors",
+    "arena": "Scotiabank Arena",
+    "latitude": "43.643333333333",
+    "longitude": "-79.379166666667"
+  },
+  {
+    "code": "UTA",
+    "team": "Utah Jazz",
+    "arena": "Vivint Smart Home Arena",
+    "latitude": "40.768333",
+    "longitude": "-111.901111"
+  },
+  {
+    "code": "WAS",
+    "team": "Washington Wizards",
+    "arena": "Capital One Arena",
+    "latitude": "38.898055555556",
+    "longitude": "-77.020833333333"
+  }
+]
