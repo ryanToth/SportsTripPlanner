@@ -32,7 +32,7 @@ namespace SportsTripPlanner
 
         internal bool GameFitsWithinTripLength(Game game)
         {
-            return this.GetStartingDate().Date.AddDays(this.tripLength) > game.Date;
+            return this.GetStartingDate().Date.AddDays(this.tripLength) > game.Date && this.GetStartingDate() < game.Date;
         }
 
         internal bool GameConflictsWithExistingGameInTrip(Game game)
@@ -46,12 +46,23 @@ namespace SportsTripPlanner
             return (int)this.GetStartingDate().DayOfWeek + this.NumberOfDays >= 7;
         }
 
-        internal City GetStartingCity()
+        internal bool ContainsLeagues(League league)
+        {
+            League leagueSum = 0;
+            foreach (Game game in this)
+            {
+                leagueSum |= game.League;
+            }
+
+            return (league | leagueSum) == leagueSum;
+        }
+
+        internal Team GetStartingCity()
         {
             return this.StartingGame.HomeTeam;
         }
 
-        internal City GetEndingCity()
+        internal Team GetEndingCity()
         {
             return this.EndingGame.HomeTeam;
         }

@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace SportsTripPlanner
 {
-    public class NhlSchedule : HashSet<Game>
+    public class NhlSchedule : Schedule
     {
-        private string yearCode;
-        
         private NhlSchedule(string yearCode)
         {
             if (yearCode == null)
@@ -22,55 +20,11 @@ namespace SportsTripPlanner
             this.yearCode = yearCode;
         }
 
-        public static async Task<NhlSchedule> GetNhlScheduleAsync(string yearCode)
+        public static async Task<NhlSchedule> GetScheduleAsync(string yearCode)
         {
             NhlSchedule schedule = new NhlSchedule(yearCode);
             await schedule.InitializeAsync();
             return schedule;
-        }
-
-        internal IEnumerable<Trip> GetTrips(int tripLength, int minimumNumberOfGames, int maxTravel, 
-            IEnumerable<string> mustSeeTeam, string necessaryHomeTeam, bool mustSpanWeekend,
-            int? mustStartOnDayOfWeek)
-        {
-            List<Trip> trips = new List<Trip>();
-
-            foreach (Game game in this)
-            {
-                var tripsToIncludeGameIn = trips.Where(x => x.CanAddGameToTrip(game));
-                List<Trip> dupeTripsToAdd = new List<Trip>();
-
-                foreach (Trip trip in tripsToIncludeGameIn)
-                {
-                    dupeTripsToAdd.Add(new Trip(trip));
-                    trip.Add(game);
-                }
-
-                trips.AddRange(dupeTripsToAdd);
-                trips.Add(new Trip(tripLength, maxTravel, game));
-            }
-
-            var potentialTrips = trips.Where(x => x.Count() >= minimumNumberOfGames && 
-                                                (!mustSpanWeekend || x.SpansWeekend()) &&
-                                                (mustStartOnDayOfWeek == null || (int)x.GetStartingDate().DayOfWeek == mustStartOnDayOfWeek.Value) &&
-                                                (mustSeeTeam.Count() == 0 || x.Where(t => mustSeeTeam.Contains(t.AwayTeam.Code) || 
-                                                                                            mustSeeTeam.Contains(t.HomeTeam.Code) ||
-                                                                                            mustSeeTeam.Contains(t.AwayTeam.Code.ToLower()) ||
-                                                                                            mustSeeTeam.Contains(t.HomeTeam.Code.ToLower())).Count() > 0) &&
-                                                (string.IsNullOrEmpty(necessaryHomeTeam) || x.Where(t => t.HomeTeam.Code == necessaryHomeTeam).Count() > 0))
-                                      .Distinct();
-
-            // Remove trips that are subsets of other trips
-            List<Trip> tripsToRemove = new List<Trip>();
-            foreach (var trip in potentialTrips)
-            {
-                if (potentialTrips.Any(x => trip.IsProperSubsetOf(x)))
-                {
-                    tripsToRemove.Add(trip);
-                }
-            }
-
-            return potentialTrips.Except(tripsToRemove);
         }
 
         private async Task InitializeAsync()
@@ -83,7 +37,7 @@ namespace SportsTripPlanner
             {
                 foreach (RawNhlGameInfo info in rawGameInfo)
                 {
-                    this.Add(await Game.CreateGameAsync(info.h, info.a, info.est));
+                    this.Add(await Game.CreateGameAsync(info.h, info.a, info.est, League.NHL));
                 }
             }
         }
