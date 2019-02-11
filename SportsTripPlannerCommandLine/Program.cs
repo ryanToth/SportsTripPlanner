@@ -24,7 +24,7 @@ namespace SportsTripPlannerCommandLine
                     IEnumerable<Trip> trips = Task.Run<IEnumerable<Trip>>(async () => {
                         return await planner.PlanTripAsync(opts.TripLength,
                             opts.MinimumNumberOfGames, opts.MaxTravel, opts.MustSeeTeams,
-                            opts.NecessaryHomeTeam, opts.MustSpanWeekend, opts.DayOfWeek);
+                            opts.NecessaryHomeTeam, opts.MustSpanWeekend, opts.DayOfWeek, opts.AfterTodayOnly);
                     }).Result;
 
                     Console.Out.WriteLine($"{Environment.NewLine}");
@@ -78,7 +78,10 @@ namespace SportsTripPlannerCommandLine
         [Option('l', "leagues", Required = false, Default = "All", HelpText = "List of all of the leagues that you are interested in. e.g. NHL NBA")]
         public IEnumerable<string> Leagues { get; set; }
 
-        [Option('q', "mustIncludeLeagues", Required = false, HelpText = "List of all of the leagues that at elast game of the trip must be.")]
+        [Option('q', "mustIncludeLeagues", Required = false, HelpText = "List of all of the leagues that at elast game of the trip must be")]
         public IEnumerable<string> MustIncludeLeagues { get; set; }
+
+        [Option('a', "afterTodayOnly", Required = false, Default = true, HelpText = "Only consider trips that would take place prior to today's date")]
+        public bool AfterTodayOnly { get; set; }
     }
 }

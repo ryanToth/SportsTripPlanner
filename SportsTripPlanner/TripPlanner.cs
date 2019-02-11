@@ -33,7 +33,7 @@ namespace SportsTripPlanner
 
         public async Task<IEnumerable<Trip>> PlanTripAsync(int tripLength, int minimumNumberOfGames, int maxTravel,
             IEnumerable<string> mustSeeTeam, string necessaryHomeTeam, bool mustSpanWeekend,
-            int? mustStartOnDayOfWeek)
+            int? mustStartOnDayOfWeek, bool afterTodayOnly)
         {
             List<Trip> trips = new List<Trip>();
             List<Game> allGames = new List<Game>();
@@ -44,13 +44,14 @@ namespace SportsTripPlanner
                 allGames.AddRange(await schedule.GetValueAsync());
             }
 
-            DayOfWeek tripEndDayOfWeekMax = (DayOfWeek)((mustStartOnDayOfWeek.Value + tripLength - 1) % 7);
+            DayOfWeek tripEndDayOfWeekMax = (DayOfWeek)((mustStartOnDayOfWeek != null ? mustStartOnDayOfWeek.Value : 0 + tripLength - 1) % 7);
 
             foreach (Game game in allGames.OrderBy(x => x.Date))
             {
                 // Check that this game takes place on a valid day of the week before considering it
-                if (!mustStartOnDayOfWeek.HasValue ||
-                    ((Utilities.InBetweenDaysInclusive(game.Date, (DayOfWeek)mustStartOnDayOfWeek.Value, tripEndDayOfWeekMax))))
+                if ((!afterTodayOnly || game.Date > DateTime.Now.Date) &&
+                    (!mustStartOnDayOfWeek.HasValue ||
+                    ((Utilities.InBetweenDaysInclusive(game.Date, (DayOfWeek)mustStartOnDayOfWeek.Value, tripEndDayOfWeekMax)))))
                 {
                     List<Trip> dupeTripsToAdd = new List<Trip>();
                     var tripsToIncludeGameIn = trips.Where(x => x.CanAddGameToTrip(game));
@@ -70,24 +71,36 @@ namespace SportsTripPlanner
                                                     (mustIncludeLeagues == League.UNK || x.ContainsLeagues(mustIncludeLeagues)) &&
                                                     (!mustSpanWeekend || x.SpansWeekend()) &&
                                                     (mustStartOnDayOfWeek == null || (int)x.GetStartingDate().DayOfWeek == mustStartOnDayOfWeek.Value) &&
-                                                    (mustSeeTeam.Count() == 0 || x.Where(t => mustSeeTeam.Contains(t.AwayTeam.Code) ||
-                                                                                                mustSeeTeam.Contains(t.HomeTeam.Code) ||
-                                                                                                mustSeeTeam.Contains(t.AwayTeam.Code.ToLower()) ||
-                                                                                                mustSeeTeam.Contains(t.HomeTeam.Code.ToLower())).Count() > 0) &&
+                                                    (!mustSeeTeam.Any() || SatisfiesMustSeeTeams(x, mustSeeTeam)) &&
                                                     (string.IsNullOrEmpty(necessaryHomeTeam) || x.Where(t => t.HomeTeam.Code == necessaryHomeTeam).Count() > 0))
-                                          .Distinct();
+                                          .Distinct().ToList();
 
             // Remove trips that are subsets of other trips
             List<Trip> tripsToRemove = new List<Trip>();
-            foreach (var trip in potentialTrips)
+            for (int i = potentialTrips.Count() - 1; i >= 0; i--)
             {
-                if (potentialTrips.Any(x => trip.IsProperSubsetOf(x)))
+                if (potentialTrips.Any(x => potentialTrips[i].IsProperSubsetOf(x)))
                 {
-                    tripsToRemove.Add(trip);
+                    potentialTrips.Remove(potentialTrips[i]);
                 }
             }
 
-            return potentialTrips.Except(tripsToRemove).ToList();
+            return potentialTrips;
+        }
+
+        private static bool SatisfiesMustSeeTeams(Trip trip, IEnumerable<string> mustSeeTeams)
+        {
+            bool ret = true;
+            foreach (string team in mustSeeTeams)
+            {
+                ret &= trip.Any(x => (x.AwayTeam.Code == team.ToUpper() || x.HomeTeam.Code == team.ToUpper()));
+                if (!ret)
+                {
+                    break;
+                }
+            }
+
+            return ret;
         }
 
         private League ParseLeagues(IEnumerable<string> leagues)
